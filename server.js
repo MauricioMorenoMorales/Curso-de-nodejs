@@ -28,7 +28,13 @@ router.post('/message', (req, res) => {
 	console.log(req.query)
 	console.log(req.body)
 	if (req.query.error == 'ok') {
-		response.error(req, res, 'Error simulado', 401)
+		response.error(
+			req,
+			res,
+			'Error inesperado',
+			401,
+			'Es solo una simulacion de los errores',
+		)
 	} else {
 		response.success(req, res, 'creado correctamente', 201)
 	}
