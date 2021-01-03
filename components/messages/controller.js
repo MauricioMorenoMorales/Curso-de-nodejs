@@ -1,5 +1,8 @@
 //?Este archivo recibe informacion desde la network
 
+//Modulos locales
+const store = require('./store')
+
 function addMessage(user, message) {
 	return new Promise((resolve, reject) => {
 		if (!user || !message) {
@@ -13,10 +16,18 @@ function addMessage(user, message) {
 			date: new Date(),
 		}
 		console.log(fullMessage)
+		store.add(fullMessage)
 		resolve(fullMessage)
 	})
 }
 
+function getMessages() {
+	return new Promise((resolve, reject) => {
+		resolve(store.list())
+	})
+}
+
 module.exports = {
-	addMessage,
+	addMessage: addMessage,
+	getMessages: getMessages,
 }

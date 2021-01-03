@@ -7,24 +7,12 @@ const controller = require('./controller')
 
 //!||
 router.get('/', (req, res) => {
-	//console.log(req.headers)
-	console.log(req.body)
-	console.log(req.query)
-	res.header({
-		Valor: 'Personalizado',
-	})
-	//?Enviamos un send desde otras funciones en otro archivo (response)
-	if (req.query.error == 'ok') {
-		response.error(
-			req,
-			res,
-			'Tu peticion por url no puede ser completada',
-			403,
-			'Parametro rechazado',
+	controller
+		.getMessages()
+		.then(message => response.success(req, res, message, 200))
+		.catch(message =>
+			response.error(req, res, 'No pudimos acceder a los datos', 404, message),
 		)
-	} else {
-		response.success(req, res, 'Hola desde get')
-	}
 })
 
 //!||
