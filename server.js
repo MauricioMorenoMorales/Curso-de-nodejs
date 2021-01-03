@@ -1,50 +1,40 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const router = express.Router()
+const bodyParser = require('body-parser')
 
-const response = require('./network/response')
+//Creando la app
+const app = express()
 
-var app = express()
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
-
+//variables de la app
+app.set('port', 3000)
+//Middlewares
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+//! Router siempre debe de ir al final
 app.use(router)
-router.get('/message', (req, res) => {
+
+//Rutas
+router.get('/', (req, res) => {
 	console.log(req.headers)
-	res.header({
-		'custom.header': 'Nuestro valor personalizado',
-	})
-	//res.send('Message list')
-	response.success(req, res, 'lista de mensajes')
-})
-
-app.use(router)
-router.delete('/message', (req, res) => {
-	res.send('Message posted')
-})
-
-app.use(router)
-router.post('/message', (req, res) => {
-	console.log(req.query)
 	console.log(req.body)
-	if (req.query.error == 'ok') {
-		response.error(
-			req,
-			res,
-			'Error inesperado',
-			401,
-			'Es solo una simulacion de los errores',
-		)
-	} else {
-		response.success(req, res, 'creado correctamente', 201)
-	}
-	//res.status(201).send([{ error: '', body: 'Creado correctamente' }])
+	console.log(req.query)
+	res.send('Hla desde get')
 })
-// app.use('', (req, res) => {
-// 	res.send('Hola')
-// })
 
-app.use('/app', express.static('public'))
+router.post('/', (req, res) => {
+	console.log(req.headers)
+	console.log(req.body)
+	console.log(req.query)
+	res.send('Hola desde post')
+})
 
-app.listen(3000)
-console.log('La aplicacion está escuchando en el puerto 3000')
+router.delete('/', (req, res) => {
+	console.log(req.headers)
+	console.log(req.body)
+	console.log(req.query)
+	res.send('HOla desde delete')
+})
+
+//Empezando el servidor en el puerto 3000
+app.listen(app.get('port'))
+console.log(`La aplicacion está corriendo en el puerto ${app.get('port')}`)
