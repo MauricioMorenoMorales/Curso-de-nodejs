@@ -27,7 +27,13 @@ router.get('/', (req, res) => {
 	})
 	//?Enviamos un send desde otras funciones en otro archivo (response)
 	if (req.query.error == 'ok') {
-		response.error(req, res, 'Tu peticion por url no puede ser completada', 403)
+		response.error(
+			req,
+			res,
+			'Tu peticion por url no puede ser completada',
+			403,
+			'Parametro rechazado',
+		)
 	} else {
 		response.success(req, res, 'Hola desde get')
 	}
@@ -42,7 +48,13 @@ router.post('/', (req, res) => {
 	})
 	//?Enviamos un send desde otras funciones en otro archivo (response)
 	if (req.query.error == 'ok') {
-		response.error(req, res, 'Tu peticion por url no puede ser completada', 403)
+		response.error(
+			req,
+			res,
+			'Tu peticion por url no puede ser completada',
+			403,
+			'Parametro rechazado',
+		)
 	} else {
 		response.success(req, res, 'Hola desde post')
 	}
@@ -57,9 +69,20 @@ router.delete('/', (req, res) => {
 	})
 	//?Enviamos un send desde otras funciones en otro archivo (response)
 	if (req.query.error == 'ok') {
-		response.error(req, res, 'Tu peticion por url no puede ser completada', 403)
+		response.error(
+			req,
+			res,
+			'Tu peticion por url no puede ser completada',
+			403,
+			'Parametro rechazado',
+		)
 	} else {
-		response.error(req, res, 'hola desde delete aqui te retornaré un 404 :B')
+		response.error(
+			req,
+			res,
+			'hola desde delete aqui te retornaré un 404 :B',
+			'Trataron de usar delete',
+		)
 	}
 })
 
