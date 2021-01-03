@@ -63,6 +63,8 @@ router.delete('/', (req, res) => {
 	}
 })
 
+app.use('/app', express.static('public'))
+
 //Empezando el servidor en el puerto $port
 app.listen(app.get('port'))
 console.log(`La aplicacion está corriendo en el puerto ${app.get('port')}`)
