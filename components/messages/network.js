@@ -3,6 +3,7 @@ const router = express.Router()
 
 // Modulos locales
 const response = require('../../network/response')
+const controller = require('./controller')
 
 //!||
 router.get('/', (req, res) => {
@@ -28,24 +29,27 @@ router.get('/', (req, res) => {
 
 //!||
 router.post('/', (req, res) => {
-	//console.log(req.headers)
-	console.log(req.body)
-	console.log(req.query)
+	//? Enviamos info de el req a el archivo -> controller lo que retorna una promesa
+	//? Después recibimos la response de el archivo response y enviamos success o error
+	controller // -> Controller
+		.addMessage(req.body.user, req.body.message)
+		.then(fullMessage => {
+			response.success(req, res, fullMessage, 201, 'Datos recibidos') // -> Response
+		})
+		.catch(() => {
+			response.error(
+				// -> Response error
+				req,
+				res,
+				'Informacion invalida',
+				403,
+				'El usuario no ha introducido datos correctos',
+			)
+		})
 	res.header({
+		//-> Envía un header a el cliente
 		Valor: 'Personalizado',
 	})
-	//?Enviamos un send desde otras funciones en otro archivo (response)
-	if (req.query.error == 'ok') {
-		response.error(
-			req,
-			res,
-			'Tu peticion por url no puede ser completada',
-			403,
-			'Parametro rechazado',
-		)
-	} else {
-		response.success(req, res, 'Hola desde post')
-	}
 })
 
 //!||

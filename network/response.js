@@ -2,7 +2,7 @@
 //* Server <- routes <- network <- responses
 
 exports.success = function (req, res, message, status) {
-	res.status(status || 200).send(`Mensaje de exito :) "${message}"`)
+	res.status(status || 200).send(message)
 }
 
 exports.error = function (req, res, message, status, details) {
