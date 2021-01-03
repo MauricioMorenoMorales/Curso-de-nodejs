@@ -1,10 +1,10 @@
 //Modulos node-express
 const express = require('express')
-const router = express.Router()
 const bodyParser = require('body-parser')
 
 //Modulos locales
 const response = require('./network/response')
+const router = require('./network/routes')
 
 //Creando la app
 const app = express()
@@ -15,76 +15,10 @@ app.set('port', 3000)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 //! Router siempre debe de ir al final
-app.use(router)
-
+//? Ya no vamos a usar el app.use(router)en su vez usaremos el router app
 //Rutas
-router.get('/', (req, res) => {
-	//console.log(req.headers)
-	console.log(req.body)
-	console.log(req.query)
-	res.header({
-		Valor: 'Personalizado',
-	})
-	//?Enviamos un send desde otras funciones en otro archivo (response)
-	if (req.query.error == 'ok') {
-		response.error(
-			req,
-			res,
-			'Tu peticion por url no puede ser completada',
-			403,
-			'Parametro rechazado',
-		)
-	} else {
-		response.success(req, res, 'Hola desde get')
-	}
-})
-
-router.post('/', (req, res) => {
-	//console.log(req.headers)
-	console.log(req.body)
-	console.log(req.query)
-	res.header({
-		Valor: 'Personalizado',
-	})
-	//?Enviamos un send desde otras funciones en otro archivo (response)
-	if (req.query.error == 'ok') {
-		response.error(
-			req,
-			res,
-			'Tu peticion por url no puede ser completada',
-			403,
-			'Parametro rechazado',
-		)
-	} else {
-		response.success(req, res, 'Hola desde post')
-	}
-})
-
-router.delete('/', (req, res) => {
-	//console.log(req.headers)
-	console.log(req.body)
-	console.log(req.query)
-	res.header({
-		Valor: 'Personalizado',
-	})
-	//?Enviamos un send desde otras funciones en otro archivo (response)
-	if (req.query.error == 'ok') {
-		response.error(
-			req,
-			res,
-			'Tu peticion por url no puede ser completada',
-			403,
-			'Parametro rechazado',
-		)
-	} else {
-		response.error(
-			req,
-			res,
-			'hola desde delete aqui te retornaré un 404 :B',
-			'Trataron de usar delete',
-		)
-	}
-})
+//?Usaremos las rutas de network
+router(app)
 
 app.use('/app', express.static('public'))
 
