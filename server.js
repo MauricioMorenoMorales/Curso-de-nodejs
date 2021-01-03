@@ -1,6 +1,10 @@
+//Modulos node-express
 const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
+
+//Modulos locales
+const response = require('./network/response')
 
 //Creando la app
 const app = express()
@@ -15,34 +19,48 @@ app.use(router)
 
 //Rutas
 router.get('/', (req, res) => {
-	console.log(req.headers)
+	//console.log(req.headers)
 	console.log(req.body)
 	console.log(req.query)
 	res.header({
 		Valor: 'Personalizado',
 	})
-	res.status(201).send('Hla desde get')
+	//?Enviamos un send desde otras funciones en otro archivo (response)
+	if (req.query.error == 'ok') {
+		response.error(req, res, 'Tu peticion por url no puede ser completada', 403)
+	} else {
+		response.success(req, res, 'Hola desde get')
+	}
 })
 
 router.post('/', (req, res) => {
-	console.log(req.headers)
+	//console.log(req.headers)
 	console.log(req.body)
 	console.log(req.query)
 	res.header({
 		Valor: 'Personalizado',
 	})
-	res.send('Hola desde post')
-	res.status(200).send('HOla desde post')
+	//?Enviamos un send desde otras funciones en otro archivo (response)
+	if (req.query.error == 'ok') {
+		response.error(req, res, 'Tu peticion por url no puede ser completada', 403)
+	} else {
+		response.success(req, res, 'Hola desde post')
+	}
 })
 
 router.delete('/', (req, res) => {
-	console.log(req.headers)
+	//console.log(req.headers)
 	console.log(req.body)
 	console.log(req.query)
 	res.header({
 		Valor: 'Personalizado',
 	})
-	res.status(403).send({ error: 404, access: 'forbidden' })
+	//?Enviamos un send desde otras funciones en otro archivo (response)
+	if (req.query.error == 'ok') {
+		response.error(req, res, 'Tu peticion por url no puede ser completada', 403)
+	} else {
+		response.error(req, res, 'hola desde delete aqui te retornaré un 404 :B')
+	}
 })
 
 //Empezando el servidor en el puerto $port
