@@ -7,6 +7,8 @@ const controller = require('./controller')
 
 //!||
 router.get('/', (req, res) => {
+	//? Enviamos info de el req a el archivo -> controller lo que retorna una promesa
+	//? Después recibimos la response de el archivo response y enviamos success o error
 	controller
 		.getMessages()
 		.then(message => response.success(req, res, message, 200))
