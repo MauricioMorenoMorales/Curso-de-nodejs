@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
 	controller // -> Controller
 		.addMessage(req.body.user, req.body.message)
 		.then(fullMessage => {
-			response.success(req, res, fullMessage, 201, 'Datos recibidos') // -> Response
+			response.success(req, res, fullMessage, 201) // -> Response
 		})
 		.catch(() => {
 			response.error(
