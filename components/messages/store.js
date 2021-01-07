@@ -15,10 +15,18 @@ function addMessage(message) {
 	myMessage.save()
 }
 
-async function getMessages() {
+async function getMessages(filterUser) {
+	let filter = {}
+	if (filterUser !== null) {
+		filter = { user: filterUser }
+	}
 	//return list
-	const messages = await Model.find()
+	const messages = await Model.find(filter)
 	return messages
+	// let userFilter = {}
+	// if (user) {
+	// 	userFilter.user = new RegExp(user, 'i')
+	//? } Hacer case insensitive la consulta a la db
 }
 
 async function updateText(id, message) {
