@@ -44,31 +44,15 @@ router.post('/', (req, res) => {
 })
 
 //!||
-router.delete('/', (req, res) => {
-	//console.log(req.headers)
-	console.log(req.body)
-	console.log(req.query)
-	res.header({
-		Valor: 'Personalizado',
-	})
-	//?Enviamos un send desde otras funciones en otro archivo (response)
-	if (req.query.error == 'ok') {
-		response.error(
-			req,
-			res,
-			'Tu peticion por url no puede ser completada',
-			403,
-			'Parametro rechazado',
-		)
-	} else {
-		response.error(
-			req,
-			res,
-			'hola desde delete aqui te retornaré un 404 :B',
-			403,
-			'Trataron de usar delete',
-		)
-	}
+router.delete('/:id', (req, res) => {
+	controller
+		.deleteMessage(req.params.id)
+		.then(() => {
+			response.success(req, res, `Usuario ${req.params.id} eliminado`, 200)
+		})
+		.catch(e => {
+			response.error(req, res, 'Error interno', 500, `[Network] Error ${e}`)
+		})
 })
 
 //!||

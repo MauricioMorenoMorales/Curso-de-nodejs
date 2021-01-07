@@ -7,5 +7,5 @@ exports.success = function (req, res, message, status) {
 
 exports.error = function (req, res, message, status, details) {
 	console.log(details)
-	res.status(status || 404).send(`Mensaje de error :( "${message}"`)
+	res.status(status || 404).send(`[Response] Mensaje de error :( "${message}"`)
 }

@@ -29,6 +29,10 @@ async function getMessages(filterUser) {
 	//? } Hacer case insensitive la consulta a la db
 }
 
+function removeMessage(id) {
+	return Model.deleteOne({ _id: id })
+}
+
 async function updateText(id, message) {
 	const foundMessage = await Model.findOne({ _id: id })
 	foundMessage.message = message
@@ -40,4 +44,5 @@ module.exports = {
 	add: addMessage,
 	list: getMessages,
 	updateText: updateText,
+	removeMessage: removeMessage,
 }
